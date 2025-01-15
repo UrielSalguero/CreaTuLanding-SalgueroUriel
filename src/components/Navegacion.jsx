@@ -1,34 +1,27 @@
-import React from 'react'
-import CartWidget from './CartWidget'
+import React from "react";
+import { Link } from "react-router-dom"; 
+import Filters from "./Filters";
 
-const Navegacion = () => {
+const Navegacion = ({ changeFilters }) => {
     return (
-        <>
-            <header className='header'>
-                <div className='logo'>J U cafetería</div>
-                <nav className='nav'>
-                    <ul className='lista'>
-                        <li><a href="#inicio" className='item'>Inicio</a></li>
-                        <li><a href="#productos" className='item'>Productos</a></li>
-                        <li><a href="#contacto" className='item'>Contacto</a></li>
-                        <CartWidget /> 
-                    </ul>
-                </nav>
-
-                <div className='barra'>
-                    <input type="text"
-                        placeholder='Buscar productos...'
-                        className='buscar'
-                    />
-                </div>
-                
-                   
-                
-            </header>
-
-        </>
+        <header className="header">
+            <div className="logo">J U cafetería</div>
+            <nav className="nav">
+                <ul className="lista">
+                    <li>
+                        <Link to="/" className="item">Inicio</Link>
+                    </li>
+                    <li>
+                        <Link to="/category/all" className="item">Productos</Link>
+                    </li>
+                    <li>
+                        <Link to="/contacto" className="item">Contacto</Link>
+                    </li>
+                    <Filters onChange={changeFilters} />
+                </ul>
+            </nav>
+        </header>
     )
 }
 
-
-export default Navegacion
+export default Navegacion;

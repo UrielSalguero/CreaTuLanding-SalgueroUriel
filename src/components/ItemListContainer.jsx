@@ -1,91 +1,52 @@
-import React from 'react'
-import img1 from "../img/cafeespresso.png"
-import img2 from "../img/afogato.png"
-import img3 from "../img/cafeleche.png"
-import img4 from "../img/capu.png"
-import img5 from "../img/cold.png"
-import img6 from "../img/latte.png"
-import img7 from "../img/moca.png"
+import React from "react";
+import { useParams } from "react-router-dom"; 
+import CartWidget from "./CartWidget";
 
+const ItemListContainer = ({ productos, agregarAlCarrito, carritoItems, cargarCarrito, eliminarCarrito }) => {
+  const { categoryId } = useParams()
 
-const ItemListContainer = ({msj}) => {
-    return (
-        <>
-            <main>
-                <div className='fondocafe'>
-                    <img src={img1} alt="fondocafe" />
+ 
+  const productosFiltrados = categoryId === "all" || !categoryId
+    ? productos // 
+    : productos.filter((producto) => producto.categoria === categoryId)
+
+  return (
+    <>
+      <div className="fondocafe">
+        <img src="/src/img/cafeespresso.png" alt="fondocafe" />
+      </div>
+      <div className="subtitulo">
+        <h3>Nuestros Productos</h3>
+      </div>
+      <div className="contenedor">
+        <div className="productos">
+          {productosFiltrados.length > 0 ? (
+            productosFiltrados.map((producto) => (
+              <div className="cardproducto" key={producto.id}>
+                <img src={producto.imagen} alt={producto.nombre} />
+                <div className="textoproducto">
+                  <h3>{producto.nombre}</h3>
+                  <p>{producto.descripcion}</p>
+                  <p className="precio">${producto.precio}</p>
+                  <button
+                    className="btn"
+                    onClick={() => agregarAlCarrito(producto)}
+                  >
+                    Agregar al Carrito
+                  </button>
                 </div>
-
-                <div className='subtitulo'><h3>Nuestros Productos</h3></div>
-                
-                <div className='productos'>     
-                    <div className='cardproducto'>
-                        <img src={img2} alt="afogato" />
-                        <div className='textoproducto'>
-                            <h3>Affogato de Vainilla</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit hic, debitis iure reiciendis commodi.</p>
-                            <p className='precio'>1000$</p>
-                            <a href="#" className='btn'>Agregar al Carrito</a>
-                        </div>
-                    </div>
-
-                    <div className='cardproducto'>
-                        <img src={img3} alt="cafeleche" />
-                        <div className='textoproducto'>
-                            <h3>Café con Leche</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit hic, debitis iure reiciendis commodi.</p>
-                            <p className='precio'>800$</p>
-                            <a href="#" className='btn'>Agregar al Carrito</a>
-                        </div>
-                    </div>
-
-                    <div className='cardproducto'>
-                        <img src={img4} alt="capu" />
-                        <div className='textoproducto'>
-                            <h3>Cappuccino</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit hic, debitis iure reiciendis commodi.</p>
-                            <p className='precio'>1200$</p>
-                            <a href="#" className='btn'>Agregar al Carrito</a>
-                        </div>
-                    </div>
-
-                    <div className='cardproducto'>
-                        <img src={img5} alt="cold" />
-                        <div className='textoproducto'>
-                            <h3>Café Frío</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit hic, debitis iure reiciendis commodi.</p>
-                            <p className='precio'>900$</p>
-                            <a href="#" className='btn'>Agregar al Carrito</a>
-                        </div>
-                    </div>
-
-                    <div className='cardproducto'>
-                        <img src={img6} alt="latte" />
-                        <div className='textoproducto'>
-                            <h3>Latte</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit hic, debitis iure reiciendis commodi.</p>
-                            <p className='precio'>1000$</p>
-                            <a href="#" className='btn'>Agregar al Carrito</a>
-                        </div>
-                    </div>
-
-                    <div className='cardproducto'>
-                        <img src={img7} alt="moca" />
-                        <div className='textoproducto'>
-                            <h3>Moca</h3>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit hic, debitis iure reiciendis commodi.</p>
-                            <p className='precio'>1100$</p>
-                            <a href="#" className='btn'>Agregar al Carrito</a>
-                        </div>
-                    </div>
-
-                    
-                </div>
-                
-                {msj}   
-            </main>
-        </>
-    )
+              </div>
+            ))
+          ) : (
+            <p>No hay productos disponibles en esta categoría.</p>
+          )}
+        </div>
+        <div className="CartWidget">
+          <CartWidget carritoItems={carritoItems} cargarCarrito={cargarCarrito} eliminarCarrito={eliminarCarrito} />
+        </div>
+      </div>
+    </>
+  )
 }
 
-export default ItemListContainer
+export default ItemListContainer;
