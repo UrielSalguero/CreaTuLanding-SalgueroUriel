@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; 
-import Filters from "./Filters";
+
 
 const Navegacion = ({ changeFilters }) => {
     return (
@@ -17,7 +17,6 @@ const Navegacion = ({ changeFilters }) => {
                     <li>
                         <Link to="/contacto" className="item">Contacto</Link>
                     </li>
-                    <Filters onChange={changeFilters} />
                 </ul>
             </nav>
         </header>

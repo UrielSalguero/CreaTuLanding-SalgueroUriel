@@ -1,29 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Filters = ({ onChange, productos }) => {
-  const [preciominimo, setPrecioMinimo] = React.useState(0)
-
-  
-  const categorias = productos && Array.isArray(productos)
-    ? ["all", "frio", "caliente"]  
-    : []
+const Filters = ({ onChange }) => {
+  const [preciominimo, setPrecioMinimo] = useState(0);
+  const categorias = ["all", "frio", "caliente"];
 
   const handleChangePrecio = (event) => {
-    const nuevoPrecio = Number(event.target.value)
-    setPrecioMinimo(nuevoPrecio)
-    onChange((prevState) => ({
-      ...prevState,
-      preciominimo: nuevoPrecio,
-    }))
-  }
+    const nuevoPrecio = Number(event.target.value);
+    setPrecioMinimo(nuevoPrecio);
+    onChange(prevState => ({ ...prevState, preciominimo: nuevoPrecio }));
+  };
 
   const handleChangeCategoria = (event) => {
-    const nuevaCategoria = event.target.value
-    onChange((prevState) => ({
-      ...prevState,
-      categoria: nuevaCategoria,
-    }))
-  }
+    onChange(prevState => ({ ...prevState, categoria: event.target.value }));
+  };
 
   return (
     <section className="filters">
@@ -42,19 +31,15 @@ const Filters = ({ onChange, productos }) => {
       <div>
         <label htmlFor="categoria">Categorías</label>
         <select id="categoria" onChange={handleChangeCategoria}>
-          <option value="all">Todas</option>
-          {categorias.map((categoria) => (
+          {categorias.map(categoria => (
             <option key={categoria} value={categoria}>
-              {categoria === "frio" && "cafes frios"}
-              {categoria === "caliente" && "cafes calientes"}
-
-              {categoria === "all" && "todos"}
+              {categoria === "frio" ? "Cafés fríos" : categoria === "caliente" ? "Cafés calientes" : "Todos"}
             </option>
           ))}
         </select>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Filters; 
+export default Filters;

@@ -1,111 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navegacion from "./components/Navegacion";
 import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import CartWidget from "./components/CartWidget";
-import productos from "./data/productos";
+import Auth from "./components/Auth";
+import { CartProvider } from "./context/CartContext";
+import { auth } from "./config/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 function App() {
-  const [carritoItems, setCarritoItems] = useState(() => {
-
-    const storedCarrito = localStorage.getItem("carrito")
-    return storedCarrito ? JSON.parse(storedCarrito) : []
-  })
-
-  const [filter, setFilter] = useState({
-    categoria: "all",
-    preciominimo: 0,
-  })
-
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem("carrito", JSON.stringify(carritoItems))
-  }, [carritoItems])
-
-  const filtrarProductos = () => {
-    return productos.filter((producto) => {
-      return (
-        producto.precio >= filter.preciominimo &&
-        (filter.categoria === "all" || producto.categoria === filter.categoria)
-      )
-    })
-  }
-
-  const productosFiltrados = filtrarProductos()
-
-  const agregarAlCarrito = (producto) => {
-    setCarritoItems((prevCarrito) => {
-      const existItem = prevCarrito.find((item) => item.id === producto.id)
-      if (existItem) {
-        return prevCarrito.map((item) =>
-          item.id === producto.id
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item
-        )
-      } else {
-        return [...prevCarrito, { ...producto, cantidad: 1 }]
-      }
-    })
-  }
-
-  const cargarCarrito = (id, cantidad) => {
-    setCarritoItems((prevCarrito) =>
-      prevCarrito.map((item) =>
-        item.id === id ? { ...item, cantidad } : item
-      )
-    )
-  }
-
-  const eliminarCarrito = (id) => {
-    setCarritoItems((prevCarrito) => prevCarrito.filter((item) => item.id !== id))
-  }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
-    <Router>
-      <Navegacion changeFilters={setFilter} />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ItemListContainer
-              productos={productosFiltrados}
-              agregarAlCarrito={agregarAlCarrito}
-              carritoItems={carritoItems}
-              cargarCarrito={cargarCarrito}
-              eliminarCarrito={eliminarCarrito}
-            />
-          }
-        />
-        <Route
-          path="/category/:categoryId"
-          element={
-            <ItemListContainer
-              productos={productosFiltrados}
-              agregarAlCarrito={agregarAlCarrito}
-              carritoItems={carritoItems}
-              cargarCarrito={cargarCarrito}
-              eliminarCarrito={eliminarCarrito}
-            />
-          }
-        />
-        <Route
-          path="/product/:productId"
-          element={<ItemDetailContainer agregarAlCarrito={agregarAlCarrito} />}
-        />
-        <Route
-          path="/cart"
-          element={
-            <CartWidget
-              carritoItems={carritoItems}
-              cargarCarrito={cargarCarrito}
-              eliminarCarrito={eliminarCarrito}
-            />
-          }
-        />
-      </Routes>
-    </Router>
-  )
+    <CartProvider>
+      <Router>
+        <Navegacion />
+        <Auth setUser={setUser} />
+        <Routes>
+          <Route path="/" element={<ItemListContainer />} />
+          <Route path="/category/:categoryId" element={<ItemListContainer />} />
+          <Route path="/product/:productId" element={<ItemDetailContainer />} />
+          <Route path="/cart" element={<CartWidget />} />
+        </Routes>
+      </Router>
+    </CartProvider>
+  );
 }
 
 export default App;

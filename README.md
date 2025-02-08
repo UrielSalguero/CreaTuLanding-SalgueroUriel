@@ -1,11 +1,18 @@
-# React + Vite
+# Ecommerce de cafeteria 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripcion 
 
-Currently, two official plugins are available:
+## Caracteristicas principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# CreaTuLanding-Salguero
-# CreaTuLanding-SalgueroUriel
-# CreaTuLanding-SalgueroUriel
+### Lista de funcionalidades mas destacadas.
+
+1. **dawdad** :
+
+## Tecnologias utilizadas 
+- Frontend: React + Vite 
+
+## Instalacion 
+
+## Configura la base de datos
+
+## Esctructura del proyecto 
