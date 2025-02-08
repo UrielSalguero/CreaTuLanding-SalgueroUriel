@@ -68,4 +68,4 @@ VITE_APP_ID=tu_app_id
  ┣ 📜 .env
  ┗ 📜 README.md
 
- Deploy: Puedes ver el proyecto en producción en: [\[Enlace a Netlify/Vercel\]](https://e-commerceju2.netlify.app/)
+ Deploy: Puedes ver el proyecto en producción en: [\[AQUI JEJE\]](https://e-commerceju2.netlify.app/)
