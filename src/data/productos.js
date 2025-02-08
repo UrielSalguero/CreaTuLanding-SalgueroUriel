@@ -1,9 +1,9 @@
-import img1 from "../img/afogato.png";
-import img2 from "../img/cafeleche.png";
-import img3 from "../img/capu.png";
-import img4 from "../img/cold.png";
-import img5 from "../img/latte.png";
-import img6 from "../img/moca.png";
+const img1 = "/img/afogato.png";
+const img2 = "/img/cafeleche.png";
+const img3 = "/img/capu.png";
+const img4 = "/img/cold.png";
+const img5 = "/img/latte.png";
+const img6 = "/img/moca.png";
 
 
 export const productos = [
