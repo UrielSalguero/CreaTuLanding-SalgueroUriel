@@ -11,14 +11,14 @@ import { onAuthStateChanged } from "firebase/auth";
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
+      setUser(user)
+    })
+    return () => unsubscribe()
+  }, [])
 
   return (
     <CartProvider>
@@ -33,7 +33,7 @@ function App() {
         </Routes>
       </Router>
     </CartProvider>
-  );
+  )
 }
 
 export default App;

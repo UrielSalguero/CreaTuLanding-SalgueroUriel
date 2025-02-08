@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
 const Filters = ({ onChange }) => {
-  const [preciominimo, setPrecioMinimo] = useState(0);
-  const categorias = ["all", "frio", "caliente"];
+  const [preciominimo, setPrecioMinimo] = useState(0)
+  const categorias = ["all", "frio", "caliente"]
 
   const handleChangePrecio = (event) => {
-    const nuevoPrecio = Number(event.target.value);
-    setPrecioMinimo(nuevoPrecio);
-    onChange(prevState => ({ ...prevState, preciominimo: nuevoPrecio }));
-  };
+    const nuevoPrecio = Number(event.target.value)
+    setPrecioMinimo(nuevoPrecio)
+    onChange(prevState => ({ ...prevState, preciominimo: nuevoPrecio }))
+  }
 
   const handleChangeCategoria = (event) => {
-    onChange(prevState => ({ ...prevState, categoria: event.target.value }));
-  };
+    onChange(prevState => ({ ...prevState, categoria: event.target.value }))
+  }
 
   return (
     <section className="filters">
@@ -39,7 +39,7 @@ const Filters = ({ onChange }) => {
         </select>
       </div>
     </section>
-  );
-};
+  )
+}
 
 export default Filters;

@@ -6,33 +6,33 @@ import ItemCount from "./ItemCount";
 import { useCart } from "../context/CartContext";
 
 const ItemDetailContainer = () => {
-  const { productId } = useParams();
-  const { agregarAlCarrito } = useCart();
-  const [producto, setProducto] = useState(null);
-  const [cantidadSeleccionada, setCantidadSeleccionada] = useState(0);
+  const { productId } = useParams()
+  const { agregarAlCarrito } = useCart()
+  const [producto, setProducto] = useState(null)
+  const [cantidadSeleccionada, setCantidadSeleccionada] = useState(0)
 
   useEffect(() => {
     const obtenerProducto = async () => {
       try {
-        const docSnap = await getDoc(doc(db, "productos", productId));
-        setProducto(docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null);
+        const docSnap = await getDoc(doc(db, "productos", productId))
+        setProducto(docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null)
       } catch (error) {
-        console.error("Error obteniendo producto:", error);
-        setProducto(null);
+        console.error("Error obteniendo producto:", error)
+        setProducto(null)
       }
-    };
+    }
 
-    obtenerProducto();
-  }, [productId]);
+    obtenerProducto()
+  }, [productId])
 
   const onAdd = (cantidad) => {
     if (producto) {
-      setCantidadSeleccionada(cantidad);
-      agregarAlCarrito({ ...producto, cantidad });
+      setCantidadSeleccionada(cantidad)
+      agregarAlCarrito({ ...producto, cantidad })
     }
-  };
+  }
 
-  if (!producto) return <p>Producto no encontrado.</p>;
+  if (!producto) return <p>Producto no encontrado.</p>
 
   return (
     <div className="producto-detalle">
@@ -51,7 +51,7 @@ const ItemDetailContainer = () => {
         <p className="sin-stock">Producto sin stock.</p>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default ItemDetailContainer;

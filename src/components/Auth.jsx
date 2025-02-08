@@ -3,32 +3,31 @@ import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signO
 import { onAuthStateChanged } from "firebase/auth";
 
 const Auth = ({ setUser }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [error, setError] = useState("");
-
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [isRegistering, setIsRegistering] = useState(false)
+  const [error, setError] = useState("")
   useEffect(() => {
-    return onAuthStateChanged(auth, setUser);
-  }, [setUser]);
+    return onAuthStateChanged(auth, setUser)
+  }, [setUser])
 
   const handleAuth = async (e) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError("")
 
     try {
       isRegistering
         ? await createUserWithEmailAndPassword(auth, email, password)
-        : await signInWithEmailAndPassword(auth, email, password);
+        : await signInWithEmailAndPassword(auth, email, password)
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        setError("Este correo ya está registrado. Intenta iniciar sesión.");
+        setError("Este correo ya está registrado. Intenta iniciar sesión.")
       } else if (error.code === "auth/wrong-password") {
-        setError("Contraseña incorrecta. Inténtalo de nuevo.");
+        setError("Contraseña incorrecta. Inténtalo de nuevo.")
       } else if (error.code === "auth/user-not-found") {
-        setError("No existe una cuenta con este correo.");
+        setError("No existe una cuenta con este correo.")
       } else {
-        setError("Ocurrió un error. Verifica tus datos e inténtalo nuevamente.");
+        setError("Ocurrió un error. Verifica tus datos e inténtalo nuevamente.")
       }
     }
   };

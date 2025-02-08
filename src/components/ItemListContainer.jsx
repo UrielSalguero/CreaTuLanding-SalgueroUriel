@@ -7,53 +7,53 @@ import CartWidget from "./CartWidget";
 import Filters from "./Filters";
 
 const ItemListContainer = () => {
-  const { categoryId } = useParams();
-  const { agregarAlCarrito } = useCart();
-  const [productos, setProductos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [filtros, setFiltros] = useState({ preciominimo: 0, categoria: "all" });
+  const { categoryId } = useParams()
+  const { agregarAlCarrito } = useCart()
+  const [productos, setProductos] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [filtros, setFiltros] = useState({ preciominimo: 0, categoria: "all" })
 
   useEffect(() => {
     const obtenerProductos = async () => {
-      setLoading(true);
-      setError(null);
+      setLoading(true)
+      setError(null)
       try {
-        const productosRef = collection(db, "productos");
-        let consulta = productosRef;
+        const productosRef = collection(db, "productos")
+        let consulta = productosRef
 
         if (categoryId && categoryId !== "all") {
-          consulta = query(productosRef, where("categoria", "==", categoryId));
+          consulta = query(productosRef, where("categoria", "==", categoryId))
         }
 
-        const snapshot = await getDocs(consulta);
+        const snapshot = await getDocs(consulta)
         if (snapshot.empty) {
-          setError("No se encontraron productos para esta categoría.");
-          setProductos([]);
+          setError("No se encontraron productos para esta categoría.")
+          setProductos([])
         } else {
-          const productosData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-          setProductos(productosData);
+          const productosData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+          setProductos(productosData)
         }
       } catch (error) {
-        console.error("Error obteniendo productos:", error);
-        setError("Hubo un problema al obtener los productos.");
+        console.error("Error obteniendo productos:", error)
+        setError("Hubo un problema al obtener los productos.")
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    obtenerProductos();
-  }, [categoryId]);
+    obtenerProductos()
+  }, [categoryId])
 
 
   const productosFiltrados = productos.filter(
     (producto) =>
       producto.precio >= filtros.preciominimo &&
       (filtros.categoria === "all" || producto.categoria === filtros.categoria)
-  );
+  )
 
-  if (loading) return <p>Cargando productos...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p>Cargando productos...</p>
+  if (error) return <p>{error}</p>
 
   return (
     <>
@@ -92,7 +92,7 @@ const ItemListContainer = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export default ItemListContainer;
