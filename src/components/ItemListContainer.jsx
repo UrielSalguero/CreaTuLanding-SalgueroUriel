@@ -58,9 +58,7 @@ const ItemListContainer = () => {
   return (
     <>
       <div className="fondocafe">
-        <img src={`${process.env.PUBLIC_URL}/img/cafeespresso.png`} alt="fondocafe" />
-
-
+        <img src="/img/cafeespresso.png" alt="fondocafe" />
       </div>
       <div className="subtitulo">
         <h3>Nuestros Productos</h3>

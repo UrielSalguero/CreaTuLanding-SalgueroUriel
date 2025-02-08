@@ -54,13 +54,19 @@ VITE_APP_ID=tu_app_id
 📦 ecommerce-cafeteria
  ┣ 📂 src
  ┃ ┣ 📂 components
+ ┃ ┃ ┣ 📜 Auth.jsx
  ┃ ┃ ┣ 📜 CartWidget.jsx
+ ┃ ┃ ┣ 📜 Contacto.jsx
+ ┃ ┃ ┣ 📜 Filters.jsx
+ ┃ ┃ ┣ 📜 ItemCount.jsx
  ┃ ┃ ┣ 📜 ItemListContainer.jsx
+ ┃ ┃ ┣ 📜 ItemList.jsx
  ┃ ┃ ┣ 📜 ItemDetailContainer.jsx
- ┃ ┣ 📂 context
- ┃ ┃ ┣ 📜 CartContext.jsx
+ ┃ ┃ ┣ 📜 Navegacion.jsx
  ┃ ┣ 📂 config
  ┃ ┃ ┣ 📜 firebaseConfig.js
+ ┃ ┣ 📂 context
+ ┃ ┃ ┣ 📜 CartContext.jsx
  ┃ ┣ 📜 App.jsx
  ┃ ┣ 📜 main.jsx
  ┣ 📜 package.json
@@ -68,4 +74,4 @@ VITE_APP_ID=tu_app_id
  ┣ 📜 .env
  ┗ 📜 README.md
 
- Deploy: Puedes ver el proyecto en producción en: [\[AQUI JEJE\]](https://e-commerceju2.netlify.app/)
+ Deploy: Puedes ver el proyecto en producción en: [\[AQUI JEJE\]](https://navega-las-rutas-salguero-uriel-bmkd9u7wl.vercel.app/)
